@@ -1,3 +1,3 @@
 # nodejs-2018
 
-Wykłady z przedmiotu node.js: http://quu.linuxpl.eu/node/
+Wykłady z przedmiotu node.js: http://quuu.linuxpl.eu/node/
