@@ -2,6 +2,8 @@
 
 Wykłady z przedmiotu node.js: http://quuu.linuxpl.eu/node/
 
+## 23.11.2018
+W katalogu `lab03` pojawiły się odpowiedzi do zadań.
 
 ## 08.11.2018
 W katalogu `lab02` pojawiły się odpowiedzi do zadań. Pojawił się również plik `wstep.pdf` zawierający informacje przypominające jak rozpocząć przygodę z naszym menadżerem pakietów.
