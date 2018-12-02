@@ -2,7 +2,7 @@
 
 Wykłady z przedmiotu node.js: http://quuu.linuxpl.eu/node/
 
-## 23.11.2018
+## 02.12.2018
 W katalogu `lab03` pojawiły się dodatowe alternatywne odpowiedzi do zadań. Tak jak było wspominane ilu programistów tyle podejść itp... ;)
 
 ## 23.11.2018
