@@ -2,6 +2,9 @@
 
 Wykłady z przedmiotu node.js: http://quuu.linuxpl.eu/node/
 
+## 29.12.2018
+W katalogu `lab05` pojawiły się rozwiązania zadań. Klasycznie, wszystko zostanie omówione na następnych zajęciach.
+
 ## 05.12.2018
 Pojawiły się rozwiązania do `lab04`! 
 Oczywiście ich rozwiązanie zostanie omówione na najbliższych zajęciach!
