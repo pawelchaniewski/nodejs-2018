@@ -2,6 +2,10 @@
 
 Wykłady z przedmiotu node.js: http://quuu.linuxpl.eu/node/
 
+## 24.01.2019
+W katalogu `lab06` pojawiły się odpowiedzi do zadań.
+Pojawił się również plik `todo_list.md` zawierający zadanie na zaliczenie I semestru z NodeJS.
+
 ## 29.12.2018
 W katalogu `lab05` pojawiły się rozwiązania zadań. Klasycznie, wszystko zostanie omówione na następnych zajęciach.
 
