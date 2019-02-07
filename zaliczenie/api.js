@@ -18,8 +18,9 @@ async function getTodoItems(category) {
 
 async function addTodoItem(title, category = "") {
     const todoItems = await getTodoItems();
+    const todoItemId = uuidv4();
     const todoItem = {
-        id: uuidv4(),
+        id: todoItemId,
         title,
         category,
         completed: false
@@ -27,9 +28,15 @@ async function addTodoItem(title, category = "") {
 
     todoItems.push(todoItem);
 
-    await axios.post(`http://api.quuu.linuxpl.eu/todo/${API_KEY}`, {
-        todoItems: todoItems
-    });
+    try {
+        await axios.post(`http://api.quuu.linuxpl.eu/todo/${API_KEY}`, {
+            todoItems: todoItems
+        });
+        return todoItemId;
+    } catch (err) {
+        console.error(err);
+        return;
+    }
 }
 
 async function updateTodoItem(id, title, category, completed) {
@@ -42,7 +49,10 @@ async function updateTodoItem(id, title, category, completed) {
     } else {
         todoItem.title = title ? title : todoItem.title;
         todoItem.category = category ? category : todoItem.category;
-        todoItem.completed = completed ? completed : todoItem.completed;
+        todoItem.completed =
+            completed === "true" || completed === "false"
+                ? JSON.parse(completed)
+                : todoItem.completed;
 
         await axios.post(`http://api.quuu.linuxpl.eu/todo/${API_KEY}`, {
             todoItems: todoItems
