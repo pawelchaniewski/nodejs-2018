@@ -1,0 +1,2941 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>NodeJS</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .left {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section data-background-image="./assets/nodejs-new-pantone-white.svg" data-background-size="60%"></section>
+        <section style="text-align: left;">
+            <h1>O mnie</h1>
+            <h2>Piotr Tarasiuk</h2>
+            <div>
+                mail: <a target="_blank" href="mailto:piotr.tarasiuk@softwarehut.com">piotr.tarasiuk@softwarehut.com</a>
+            </div>
+            <div>
+                github: <a target="_blank" href="https://github.com/piotar">https://github.com/piotar</a>
+            </div>
+            <div>
+                linkedin: <a target="_blank" href="https://linkedin.com/in/piotr-tarasiuk">https://linkedin.com/in/piotr-tarasiuk</a>
+            </div>
+        </section>
+        <section>
+            <h1>Zaliczenie (?)</h1>
+        </section>
+        <section>
+            <h1>Przygotowanie środowiska</h1>
+        </section>
+        <section>
+            <h2>Instalacja <a target="_blank" href="https://nodejs.org">Node.js</a></h2>
+            <p>
+                url: <a target="_blank" href="https://nodejs.org">https://nodejs.org</a>
+                <img src="./assets/nodejs.org.png"/>
+            </p>
+        </section>
+        <section>
+            <img src="./assets/terminal.png"/>
+        </section>
+
+        <section>
+            <h1>Czym jest Node.js?</h1>
+        </section>
+        <section>
+            <h2>Node.js</h2>
+            <p class="fragment">
+                Jest środowiskiem uruchomieniowym zaprojektowanym do tworzenia wysoce skalowalnych aplikacji, napisanych
+                w języku JavaScript poza kontekstem przeglądarki.
+            </p>
+            <p class="fragment">
+                Node.js jak również interpreter JavaScript w naszej przeglądarce bazują na tym samym silniku zwanym <b>V8
+                JavaScript Runtime Engine</b>.
+            </p>
+        </section>
+        <section>
+            <h2><a target="_blank" href="https://v8.dev/">V8</a> JavaScript Runtime Engine</h2>
+            <p class="fragment">- otwarty kod źródłowy</p>
+            <p class="fragment">- napisany w języku c++</p>
+            <p class="fragment">- możliwość rozszerzenia silnika przez napisane modułu w c++</p>
+            <p class="fragment">- kompiluje kod JavaScript do kodu maszynowego</p>
+        </section>
+        <section>
+            <section>
+                <h2>
+                    Czym jest <a target="_blank" href="https://pl.wikipedia.org/wiki/J%C4%99zyk_maszynowy">kod
+                    maszynowy</a>?
+                </h2>
+                <p class="fragment">
+                    Jest to zestaw rozkazów procesora w którym zapis programu wyrażony jest w postaci liczb binarnych
+                    stanowiących rozkazy oraz ich argumenty,
+                </p>
+                <p class="fragment">
+                    Kod maszynowy to postać programu komputerowego (zwana postacią wykonywalną lub binarną) przeznaczona
+                    do
+                    bezpośredniego lub prawie bezpośredniego wykonania przez procesor.
+                </p>
+            </section>
+            <section data-background-image="./assets/hello-world.png"
+                     data-background-size="initial"
+            >
+            </section>
+        </section>
+        <section>
+            <h2>Na co pozwala nam Node.js?</h2>
+            <p class="fragment">
+                Node.js pozwala nam na mainipulowanie systemem plików, stworzenie własnego serwera, łączenie się z
+                bazami danych, obsługą wejścia/wyjścia, itp.
+            </p>
+            <p class="fragment">
+                JavaScript po stronie przegladarki daje jedynie możliwość manipulowania danymi w naszym oknie(<code>window</code>).
+            </p>
+        </section>
+        <section>
+            <section>
+                <h2>Node.js vs JS w przeglądarce</h2>
+                <table>
+                    <tr class="fragment">
+                        <td><code>global</code></td>
+                        <td>&lt; = &gt;</td>
+                        <td><code>window</code></td>
+                    </tr>
+                    <tr class="fragment">
+                        <td><code>process</code></td>
+                        <td>&lt; = &gt;</td>
+                        <td><code>document</code></td>
+                    </tr>
+                </table>
+            </section>
+            <section data-background-image="./assets/hello-world-browser.png"
+                     data-background-size="initial"
+            >
+            </section>
+        </section>
+        <section>
+            <h2>Dlaczego Node.js jest tak popularny?</h2>
+            <p class="fragment">
+                - Asynchroniczne wejście/wyjście (<a target="_blank"
+                                                     href="https://en.wikipedia.org/wiki/Asynchronous_I/O">non-blocking
+                I/O model</a>)
+            </p>
+            <p class="fragment">
+                - Node.js wykorzystuje programowanie zdarzeniowe
+                (<a target="_blank"
+                    href="https://pl.wikipedia.org/wiki/Programowanie_sterowane_zdarzeniami"
+            >event driven</a>)
+            </p>
+            <p class="fragment">
+                - Node.js package ecosystem (<a target="_blank" href="https://www.npmjs.com/">npm</a>)
+            </p>
+        </section>
+        <section>
+            <h2>Czym jest wejście/wyjście(I/O)?</h2>
+            <p class="fragment">
+                Jest czymś co każda aplikacja wykonuje cały czas, np. operacje na bazie danych, wysyłanie i odbieranie
+                żądań HTTP, operację na systemie plików.
+            </p>
+            <p class="fragment">
+                Trzeba pamiętać, operacje I/O wymagają czasu!
+            </p>
+        </section>
+        <section>
+            <h2>Synchroniczne vs Asynchroniczne</h2>
+        </section>
+        <section data-background-image="./assets/blocking.png"
+                 data-background-size="initial"
+        >
+            <section></section>
+            <section data-background-image="./assets/timeline/1.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/2.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/3.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/4.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/5.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/6.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/7.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/8.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/9.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/10.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+            <section data-background-image="./assets/timeline/11.png"
+                     data-background-size="initial"
+                     data-background-position="bottom"
+            >
+            </section>
+        </section>
+        <section>
+            <h2>Czy jest <a target="_blank" href="https://www.npmjs.com/">npmjs</a>?</h2>
+            <p class="fragment">
+                <code>Node package manager</code>, domyślny manager pakietów dla środowiska Node.js.
+            </p>
+            <p class="fragment">
+                <code>Npm</code> jest aplikacją wiersza poleceń, za pomocą której można instalować aplikacje dostępne w
+                repozytorium Npm.
+            </p>
+        </section>
+        <section>
+            <h1>Podstawy Node.js</h1>
+        </section>
+        <section>
+            <h2>Require</h2>
+            <p>
+                Funkcja wbudowana w node.js, pozwala nam na wczytanie zewnętrznego pliku/modułu.
+            </p>
+            <p>
+                * <code>import/export</code>[<a target="_blank" href="https://nodejs.org/api/esm.html">^</a>] w node.js
+                jest ciągle w fazie eksperymentalnej(<code>--experimental-modules</code>) i występuje jedynie w <a
+                    target="_blank" href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/">ES
+                module</a>
+            </p>
+            <pre><code class="hljs">
+    const path = require('path');
+            </code></pre>
+        </section>
+        <section>
+            <h2><code>module.exports</code></h2>
+            <p>Pozwala na wyeksportowanie zmienncy/funkcji.</p>
+            <pre><code class="hljs">
+    module.exports.abc = 'some string';
+            </code></pre>
+            <p>lub</p>
+            <pre><code class="hljs">
+    module.exports = {
+        abc: 'some string'
+    };
+            </code></pre>
+        </section>
+        <section data-background-image="./assets/module_wtf.png"
+                 data-background-color="white"
+                 data-background-size="50%"
+        >
+        </section>
+        <section>
+            <section>
+                <h2>Moduł (<code>module</code>)</h2>
+                <p>- wbudowany (<code>fs</code>, <code>os</code>, itd...)</p>
+                <p>- własny</p>
+                <p>- zewnętrzny (lokalny/globalny)</p>
+            </section>
+            <section>
+                <h2>Moduły wbudowane</h2>
+            </section>
+            <section data-background-image="./assets/node_modules.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/doc.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section>
+                <h2>Własne moduły</h2>
+            </section>
+            <section data-background-image="./assets/internal_modules.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/bad_code.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section>
+                <h2>Zewnętrzne moduły</h2>
+            </section>
+
+            <section data-background-image="./assets/wheel.jpg"
+                     data-background-size="initial"
+            >
+            </section>
+            <section data-background-image="./assets/external_module.png"
+                     data-background-size="60%"
+            >
+            </section>
+
+
+            <section data-background-image="./assets/module.png"
+                     data-background-size="60%"
+            >
+            </section>
+
+        </section>
+        <section>
+            <section><h1>NPM</h1></section>
+            <section data-background-image="./assets/npm/npm.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/npm/npm_init.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/npm/npm_init_package.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/npm/npm_package.png"
+                     data-background-size="60%"
+            >
+            </section>
+
+            <section data-background-image="./assets/skladniki.jpg"
+                     data-background-size="initial"
+            >
+            </section>
+            <section data-background-image="./assets/npm/npm_web.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/npm/npm_install_lodash.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/npm/npm_install_package.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/npm/npm_global.png"
+                     data-background-size="60%"
+            >
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Call stack & event loop</h1>
+            </section>
+            <section data-background-image="./assets/async/basic/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/basic/step2.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/basic/step3.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/basic/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/basic/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic/step5.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+        </section>
+        <section>
+            <section data-background-image="./assets/async/basic2/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/basic2/step1.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/basic2/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step2.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step3.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step5.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step6.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/basic2/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/step7.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/basic2/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+        </section>
+
+        <section>
+
+            <section data-background-image="./assets/async/sync/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/step1.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/step2.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            >
+                <p class="fragment">
+                    <img style="border: 0; box-shadow: none" src="./assets/loader.gif">
+                </p>
+            </section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/step3.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            >
+                <p class="fragment">
+                    <img style="border: 0; box-shadow: none" src="./assets/loader.gif">
+                </p>
+            </section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            >
+                <p class="fragment">
+                    <img style="border: 0; box-shadow: none" src="./assets/loader.gif">
+                </p>
+            </section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/step5.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/step6.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/step7.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/sync/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+        </section>
+
+        <section>
+            <section><h1>Async Basics</h1></section>
+            <section>
+                <h2>callback</h2>
+                <p>Funkcja która zostanie wykonana po określonej czynności</p>
+
+                <pre><code class="hljs">
+    console.log('starting app');
+
+    setTimeout(function () {
+        console.log('my function callback');
+    }, 5000);
+
+    console.log('end app');
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/async/timeout.png"
+                     data-background-size="60%"
+            >
+            </section>
+        </section>
+        <section>
+            <section data-background-image="./assets/async/timeout/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/timeout/step1.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/step2.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/step3.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/timeout/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/timeout/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+        </section>
+        <section>
+            <section data-background-image="./assets/async/event/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step1.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step2.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step3.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step5.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/event/step6.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step7.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step8.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/event/step9.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event/step8.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/event/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+        </section>
+        <section>
+            <section>
+                <pre><code class="hljs">
+    console.log('starting app');
+
+    setTimeout(function cb1() {
+        console.log('my function callback1');
+    }, 5000);
+
+    setTimeout(function cb2() {
+        console.log('my function callback2');
+    }, 0);
+
+    console.log('end app');
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/async/event2/init.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step1.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/main.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step2.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step3.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step4.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step5.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step6.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step7.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/event2/step8.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step9.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step8.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step10.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step11.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step12.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step11.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step13.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step14.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step15.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step16.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/async/event2/step15.png"
+                     data-background-color="white"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/async/event2/init.png"
+                     data-background-color="white"
+                     data-background-size="60%"
+            ></section>
+        </section>
+        <section>
+            <section>
+            <h1>Callback</h1>
+            <pre><code class="hljs">
+function getUser(id, callback) {
+    const user = {
+        id: id,
+        name: 'Jan'
+    };
+    // ...
+    callback(user);
+}
+
+getUser(12, function (userInfo) {
+    console.log(userInfo);
+});
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/async/callback/get-user.png"
+                     data-background-size="initial"
+            ></section>
+            <section>
+                <h2><a href="https://www.npmjs.com/package/request" target="_blank">request</a></h2>
+            <pre><code class="hljs">
+const request = require('request');
+
+function getUser(id, callback) {
+    const url = 'https://jsonplaceholder.typicode.com/users/' + id;
+    request(url, function (error, response, body) {
+        callback(body);
+    });
+}
+
+getUser(5, function (userInfo) {
+    console.log(userInfo);
+});
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/async/callback/get-user-mock.png"
+                     data-background-size="initial"
+            ></section>
+        </section>
+        <section>
+            <section>
+                <h1>JSON</h1>
+                JavaScript Object Notation - lekki format wymiany danych komputerowych. JSON jest formatem tekstowym, bazującym na podzbiorze języka JavaScript.
+            </section>
+            <section>
+                <h2>przykładowy JSON</h2>
+                <pre><code class="hljs">
+{
+    "id": 12,
+    "name": "Jan",
+    "age": 35,
+    "fullName": "Jan Nowak"
+}
+            </code></pre>
+            </section>
+            <section>
+                <h2>JSON.parse</h2>
+                <pre><code class="hljs">
+const userString = '{ "id": 12, "name": "Jan", "age": 35 }';
+const user = JSON.parse(userString);
+
+console.log(userString);
+console.log(userString.id);
+console.log(user);
+console.log(user.id);
+            </code></pre>
+            </section>
+            <section>
+                <h2>JSON.stringify</h2>
+                <pre><code class="hljs">
+const user = {
+    id: 12,
+    name: 'Jan',
+    age: 25,
+};
+const userString = JSON.stringify(user);
+
+console.log(user);
+console.log(user.id);
+console.log(userString);
+console.log(userString.id);
+            </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Callback errors</h1>
+            </section>
+            <section>
+                <pre><code class="hljs">
+const request = require('request');
+
+const url = 'https://jsonplaceholder.typicode.com/users/123';
+request(url, function (error, response, body) {
+    const result = JSON.parse(body);
+    console.log(result.address.geo.lat);
+    console.log(result.address.geo.lng);
+});
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/async/callback/get-user-error.png"
+                     data-background-size="initial"
+            ></section>
+            <section>
+                <pre><code class="hljs">
+const request = require('request');
+
+const url = 'https://jsonplaceholder.typicode.com/users/123';
+request(url, function (error, response, body) {
+    if (error) {
+        console.log('problem with api')
+    } else if (response.statusCode === 200) {
+        const result = JSON.parse(body);
+        console.log(result.address.geo.lat);
+        console.log(result.address.geo.lng);
+    } else {
+        console.log('user not found')
+    }
+});
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/async/callback/get-user-error-fix.png"
+                     data-background-size="initial"
+            ></section>
+        </section>
+        <section>
+            <section>
+                <h1>Debugging Node.js</h1>
+            </section>
+            <section>
+                <pre><code class="hljs">
+const user = {
+    name: 'Jan',
+};
+
+user.age = 22;
+
+user.name = 'Adam';
+
+console.log(user);
+            </code></pre>
+            </section>
+
+            <section data-background-image="./assets/debug/step1.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step2.png"
+                     data-background-size="initial"
+            ></section>
+            <section>
+                <h2>REPL</h2>
+                <p>
+                    REPL (ang. read-eval-print loop) - proste, interaktywne środowisko programowania.
+                    Praktycznie każdy język uruchamiany jako interpreter posiada REPL.
+                    Dzięki REPL użytkownik może wprowadzać polecenia, które zostaną wykonane a ich wynik wypisany na ekran.
+                </p>
+            </section>
+            <section data-background-image="./assets/debug/step3.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step4.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step5.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step6.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step7.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step8.png"
+                     data-background-size="initial"
+            ></section>
+            <section>
+                <h2>debugger;</h2>
+                <pre><code class="hljs">
+const user = {
+    name: 'Jan',
+};
+
+user.age = 22;
+debugger;
+user.name = 'Adam';
+
+console.log(user);
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/debug/step9.png"
+                     data-background-size="initial"
+            ></section>
+
+            <section data-background-image="./assets/debug/step10.png"
+                     data-background-size="initial"
+            ></section>
+            <section>
+                <h2>Debugging in browser</h2>
+            </section>
+            <section data-background-image="./assets/debug/step11.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step12.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step13.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step14.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step15.png"
+                     data-background-size="initial"
+            ></section>
+            <section>
+                <h2>Debugging in VSC</h2>
+            </section>
+            <section data-background-image="./assets/debug/step16.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/debug/step17.png"
+                     data-background-size="initial"
+            ></section>
+        </section>
+        <section>
+            <section>
+                <h1>Arrow functions</h1>
+                <pre><code class="hljs">
+function sum(a, b) {
+    return a + b;
+}
+            </code></pre>
+                <p>=</p>
+                <pre><code class="hljs">
+const sum = (a, b) => a + b;
+            </code></pre>
+
+            </section>
+        </section>
+        <section>
+            <section data-background-image="./assets/promise/hell.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/promise/fire.jpg"
+                     data-background-size="100%"
+            >
+                <h2 style="text-shadow: 0 0 50px black;">CALLBACK HELL!</h2>
+            </section>
+            <section data-background-image="./assets/promise/pyramid.jpg"
+                     data-background-size="100%"
+            >
+                <h2 style="text-shadow: 0 0 50px black, 0 0 50px black;">The Pyramid of Doom</h2>
+            </section>
+            <section data-background-image="./assets/promise/hell-pyramid.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/promise/lab03.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/promise/hell-promise.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/promise/hell.png"
+                     data-background-size="initial"
+            ></section>
+        </section>
+        <section>
+            <section>
+                <h2>Promise</h2>
+                <p class="fragment">
+                    Klasa pozwalająca na tworzenie OBIEKTÓW reprezentujących wartość lub niepowodzenie operacji asynchronicznych.
+                </p>
+                <p class="fragment">
+                    Promise reprezentuje operację która jeszcze się nie zakończyła, ale oczekuje się jej w przyszłości.
+                </p>
+            </section>
+            <section>
+                <h2>Callbacks vs promises</h2>
+                <ul>
+                    <li class="fragment"><code>Callback</code> jest funkcją, <code>promise</code> jest obiektem</li>
+                    <li class="fragment"><code>Callback</code> przyjmuje parametry, <code>promise</code> jedynie zwraca wartość</li>
+                    <li class="fragment"><code>Callback</code> obsługuje sukces oraz błąd, <code>promise</code> nie obsługuje nic a jedynie przekazuje dalej wartości</li>
+                    <li class="fragment"><code>Callback</code> możemy wywołać wiele razy, <code>promise</code> jest wywoływany tylko raz</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Promise states</h2>
+                <ul class="fragment">
+                    <li>pending</li>
+                    <li>fulfilled</li>
+                    <li>rejected</li>
+                </ul>
+            </section>
+            <section data-background-image="./assets/promise/states.png"
+                     data-background-size="initial"
+                     data-background-color="white"
+            ></section>
+            <section>
+                <h2>Create promise</h2>
+                <pre><code class="hljs">
+const myPromise = new Promise(/* executor */ (resolve, reject) => {
+    if (/* some logic */) {
+        resolve('all works fine');
+    } else {
+        reject('error');
+    }
+});
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/promise/diagram.png"
+                     data-background-size="initial"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/promise/promise-pending.png"
+                     data-background-size="initial"
+            ></section>
+            <section data-background-image="./assets/promise/resolve.png"
+                     data-background-size="initial"
+                     data-background-color="white"
+            >
+            </section>
+            <section data-background-image="./assets/promise/reject.png"
+                     data-background-size="initial"
+                     data-background-color="white"
+            >
+            </section>
+            <section>
+                <h2>.then(onFulfilled, onRejected)</h2>
+                <pre><code class="hljs">
+myPromise.then(
+    result => { /* handle a succcessful result */ },
+    error => { /* handle an error */ }
+);
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/promise/then-compare.png"
+                     data-background-size="initial"
+                     data-background-color="white"
+            >
+            </section>
+            <section>
+                <h2>.catch(onRejected)</h2>
+                <pre><code class="hljs">
+myPromise.then(result => { /* ... */ })
+    .then(result => { /* ... */ })
+    .catch(error => { /* handle an error */ });
+            </code></pre>
+            </section>
+            <section>
+                <h2>.finally()</h2>
+                <pre><code class="hljs">
+myPromise.then(result => { /* handle a succcessful result */ })
+    .catch(error => { /* handle an error */ })
+    .finally(() => { /* do something at the end ... */ });
+            </code></pre>
+            </section>
+            <section>
+                <h2>Promise.all([...])</h2>
+                <pre><code class="hljs">
+Promise.all([promise1, promise2, ...]);
+            </code></pre>
+            </section>
+            <section>
+                <h2>Promise.race([...])</h2>
+                <pre><code class="hljs">
+Promise.race([promise1, promise2, ...]);
+            </code></pre>
+            </section>
+            <section>
+                <h2>Promise.resolve(...)</h2>
+                <pre><code class="hljs">
+Promise.resolve(/* some object/string/etc... */);
+            </code></pre>
+            </section>
+            <section>
+                <h2>Promise.reject(...)</h2>
+                <pre><code class="hljs">
+Promise.reject(/* some object/string/etc... */);
+            </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Error handling</h1>
+            </section>
+            <section data-background-image="./assets/errors/json_crash_1.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section data-background-image="./assets/errors/explode.gif"
+            >
+            </section>
+            <section data-background-image="./assets/errors/json_crash_2.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section data-background-image="./assets/errors/errors.jpg"
+                     data-background-size="50%"
+                     data-background-color="white"
+            >
+            </section>
+            <section>
+                <h2>try...catch</h2>
+                <pre><code class="hljs">
+try {
+	// code...
+} catch (error) {
+	// error handling
+}
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/errors/diagram.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            >
+            </section>
+            <section data-background-image="./assets/errors/json_crash_3.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section>
+                <h2>Zapamiętać!</h2>
+                <ul>
+                    <li class="fragment"><code>try..catch</code> działa tylko w przypadku błędów w czasie wykonywania</li>
+                    <li class="fragment"><code>try..catch</code> działa synchronicznie</li>
+                    <li class="fragment"><code>try..catch</code> zmienne zadeklarowane są lokalne</li>
+                    <li class="fragment"><code>return & finally</code> - <code>finally</code> wykona się zawsze nawet jak w bloku wystąpi <code>return</code></li>
+                </ul>
+            </section>
+            <section>
+                <h2>finally</h2>
+                <pre><code class="hljs">
+try {
+	// code...
+} catch (error) {
+	// error handling
+} finally {
+	// some code ...
+}
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/errors/diagram_finally.png"
+                     data-background-size="40%"
+                     data-background-color="white"
+            >
+            </section>
+            <section>
+                <h2>Wbudowane błędy</h2>
+                <ul>
+                    <li class="fragment"><code>Error</code> - bazowa klasa błędu</li>
+                    <li class="fragment"><code>EvalError</code> - błąd w funkcji <code>eval()</code></li>
+                    <li class="fragment"><code>RangeError</code> - wartość z poza zakresu</li>
+                    <li class="fragment"><code>ReferenceError</code> - bład referencji do obiektu</li>
+                    <li class="fragment"><code>SyntaxError</code> - błąd składniowy</li>
+                    <li class="fragment"><code>TypeError</code> - bład typu</li>
+                    <li class="fragment"><code>URIError</code> - błąd w funkcji <code>encodeURI()</code></li>
+                </ul>
+            </section>
+            <section>
+                <h2>ERROR Object</h2>
+                <ul>
+                    <li class="fragment"><code>name</code> - nazwa błędu</li>
+                    <li class="fragment"><code>message</code> - wiadomość błędu</li>
+                    <li class="fragment"><code>stack</code> - stack w którym pojawił się błąd</li>
+                </ul>
+            </section>
+            <section>
+                <h2><code>EvalError</code></h2>
+                <p><code>EvalError => SyntaxError </code></p>
+            </section>
+            <section>
+                <h2><code>RangeError</code></h2>
+                <pre><code class="hljs">
+    const someNumber = 5;
+    someNumber.toPrecision(500); // this throw RangeError
+            </code></pre>
+            </section>
+            <section>
+                <h2><code>ReferenceError</code></h2>
+                <pre><code class="hljs">
+    const a = 5;
+    const result = a + b; // this throw ReferenceError
+            </code></pre>
+            </section>
+            <section>
+                <h2><code>SyntaxError</code></h2>
+                <pre><code class="hljs">
+JSON.parse('crush JSON!'); // this throw SyntaxError
+eval('const abc = "some broken string'); // this throw SyntaxError
+            </code></pre>
+            </section>
+            <section>
+                <h2><code>TypeError</code></h2>
+                <pre><code class="hljs">
+    const someNumber = 5;
+    someNumber.toUpperCase(); // this throw TypeError
+            </code></pre>
+            </section>
+            <section>
+                <h2><code>URIError</code></h2>
+                <pre><code class="hljs">
+    decodeURI('%%%'); // this throw URIError
+            </code></pre>
+            </section>
+            <section>
+                <h2>Rzucanie wyjątkiem</h2>
+                <pre class="fragment"><code class="hljs">
+    throw &lt;error&gt;;
+            </code></pre>
+                <pre class="fragment"><code class="hljs">
+    throw 123;
+            </code></pre>
+                <pre class="fragment"><code class="hljs">
+    throw "some error string";
+            </code></pre>
+                <pre class="fragment"><code class="hljs">
+    throw new Error('some error');
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/errors/number_odd.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section>
+                <h2><code>instanceof</code></h2>
+                <pre><code class="hljs">
+    const someError = new SyntaxError('abc');
+    console.log(someError instanceof ReferenceError); // false
+    console.log(someError instanceof SyntaxError); // true
+    console.log(someError instanceof Error); // true
+            </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Promise</h1>
+                <h2>async/await</h2>
+            </section>
+            <section>
+                <h2>Async</h2>
+                <pre class="fragment"><code class="hljs">
+    async function someFunc() {
+        return ...; // some function body
+    }
+            </code></pre>
+                <pre class="fragment"><code class="hljs">
+    const arrowFunc = async () => ... // some function body
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/promise/async.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section data-background-image="./assets/promise/async_b.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section data-background-image="./assets/promise/async_c.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section data-background-image="./assets/promise/async_reject.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/promise/async_reject_b.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section>
+                <pre><code class="hljs">
+    async function multi(a, b) {
+        return a + b;
+    }
+
+    multi(4, 5)
+        .then(result => {
+            console.log(result);
+        });
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/promise/async_run.png"
+                     data-background-size="50%"
+            >
+            </section>
+            <section>
+                <h2>Await</h2>
+                <pre class="fragment"><code class="hljs">
+    const someVar = await &lt;promise&gt;
+            </code></pre>
+                <pre class="fragment"><code class="hljs">
+    const someVar = await Promise.resolve('abc');
+            </code></pre>
+                <pre class="fragment"><code class="hljs">
+    const axios = require('axios');
+    // ...
+    const user = await axios('https://.../users/1');
+            </code></pre>
+            </section>
+
+            <section data-background-image="./assets/promise/await_compare.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/promise/await_compare_b.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section>
+                <h2>Zapamiętać!</h2>
+                <ul>
+                    <li class="fragment"><code>async</code> tworzy nam funkcję opakowaną w <code>Promise</code></li>
+                    <li class="fragment"><code>await</code> działa jedynie wewnątrz funkcji <code>async</code></li>
+                    <li class="fragment"><code>await</code> nie można stosować w funkcji synchronicznej</li>
+                    <li class="fragment"><code>await</code> nie działa w kodzie najwyższego poziomu</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Error handling in <code>Promise</code></h2>
+                <pre class="fragment"><code class="hljs">
+async function someFunc() {
+    await Promise.reject(new Error('error'));
+}
+            </code></pre>
+                <p class="fragment">=</p>
+                <pre class="fragment"><code class="hljs">
+async function someFunc() {
+    throw new Error('error');
+}
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/promise/async_catch.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section data-background-image="./assets/promise/async_catch_b.png"
+                     data-background-size="60%"
+            >
+            </section>
+        </section>
+        <style>
+            .accent {
+                color: #1b91ff;
+            }
+        </style>
+        <section>
+            <section><h1>HTTP Basics</h1></section>
+            <section>
+                <h2>HTTP</h2>
+                <div style="text-align: left;">
+                    <p class="fragment"><b class="accent">H</b>yper<b class="accent">t</b>ext <b class="accent">T</b>ransfer <b class="accent">P</b>rotocol - protokół przesyłania dokumentów hipertekstowych </p>
+                    <ul>
+                        <li class="fragment">udostępnia znormalizowany sposób komunikowania się i wymiany danych między klientem a serwerem</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>HTTP ...</h2>
+                <ul style="text-align: left;">
+                    <li class="fragment">określa formę żądań klienta dotyczących danych oraz formę odpowiedzi serwera na żądanie</li>
+                    <li class="fragment">służy do przesyłania różnych typów danych, np. obrazów, wideo, dokumentów, itp.</li>
+                    <li class="fragment">bazuje na protokole TCP</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Zapamiętać!</h2>
+                <ul>
+                    <li class="fragment"><code>HTTP</code> jest typu <code>connectionless</code></li>
+                    <li class="fragment"><code>HTTP</code> dostarcza wszelkiego rodzaju dane</li>
+                    <li class="fragment"><code>HTTP</code> jest typu <code>stateless</code></li>
+                </ul>
+            </section>
+            <section>
+                <h2>Wersje <code>HTTP</code></h2>
+                <table>
+                    <tr>
+                        <td>1991</td>
+                        <td>0.9</td>
+                    </tr>
+                    <tr>
+                        <td>1996</td>
+                        <td>1.0</td>
+                    </tr>
+                    <tr>
+                        <td>1997</td>
+                        <td>1.1</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td>2.0</td>
+                    </tr>
+                </table>
+            </section>
+            <section>
+                <h2>TCP</h2>
+                <div style="text-align: left;">
+                    <p class="fragment"><b class="accent">T</b>ransmission <b class="accent">C</b>ontrol <b class="accent">P</b>rotocol - protokół sterowania transmisją</p>
+                    <p class="fragment">Połączeniowy, niezawodny strumieniowy protokół komunikacyjny stosowany do przesyłania danych pomiędzy procesami uruchomionymi na różnych maszynach.</p>
+                </div>
+            </section>
+            <section data-background-image="./assets/tcp/1.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/tcp/2.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/tcp/3.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/tcp/4.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/tcp/5.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/tcp/6.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/tcp/7.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <!--<section>-->
+                <!--<h2><code>HTTP</code> diagram</h2>-->
+            <!--</section>-->
+            <section data-background-image="./assets/http/1.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/2.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/3.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/4.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/5.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/6.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/7.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/url1.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/http/url2.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section>
+                <h2><code>HTTP</code> messages</h2>
+                <ul>
+                    <li class="fragment"><code>Request HTTP message</code></li>
+                    <li class="fragment"><code>Response HTTP message</code></li>
+                </ul>
+            </section>
+            <section data-background-image="./assets/msg/1.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/2.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/3.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/4.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/rq1.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/rq2.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/rq3.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section>
+                <pre><code class="hljs">
+    GET /posts/1 HTTP/1.1
+
+    Content-Type: application/json
+    Accept: */*
+    Host: localhost:4800
+            </code></pre>
+            </section>
+            <section data-background-image="./assets/msg/res1.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/res2.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/res3.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/msg/res4.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+
+            <section>
+                <pre><code class="hljs">
+    HTTP/1.1 200
+    status: 200
+
+    Cache-Control: no-cache
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 292
+    Date: Sat, 12 Jan 2019 07:11:48 GMT
+
+    { ... user data }
+            </code></pre>
+            </section>
+            <section>
+                <h2><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank"><code>HTTP</code> methods</a></h2>
+            </section>
+            <section>
+                <h2><code>GET</code></h2>
+                <p class="fragment">Metoda <code>GET</code> służy do żądania danych z określonego zasobu.</p>
+                <p class="fragment">Żądania używające metody <code>GET</code> powinny jedynie pobierać dane.</p>
+            </section>
+            <section>
+                <h2><code>HEAD</code></h2>
+                <p class="fragment">Metoda <code>HEAD</code> pobiera informacje o zasobie, stosowane do sprawdzania dostępności zasobu.</p>
+            </section>
+            <section>
+                <h2><code>POST</code></h2>
+                <p class="fragment">Metoda <code>POST</code> wysyła żądanie, aby serwer zaakceptował encję zawartą w żądaniu jako nowy obiekt zasobu sieciowego zidentyfikowanego przez wysłany URL.</p>
+            </section>
+            <section>
+                <h2><code>PUT</code></h2>
+                <p class="fragment">Metoda <code>PUT</code> wysyła żądanie, aby obiekt był przechowywany pod dostarczonym identyfikatorem URL. Jeśli identyfikator URL odnosi się do już istniejącego zasobu, jest on modyfikowany, jeśli identyfikator URL nie wskazuje na istniejąc zasob to serwer może utworzyć zasób z tym identyfikatorem URL.</p>
+            </section>
+            <section>
+                <h2><code>PATCH</code></h2>
+                <p class="fragment">Metoda <code>PATCH</code> stosuje częściowe modyfikacje zasobu.</p>
+            </section>
+            <section>
+                <h2><code>DELETE</code></h2>
+                <p class="fragment">Metoda <code>DELETE</code> usuwa określony zasób.</p>
+            </section>
+            <section>
+                <h2><code>OPTIONS</code></h2>
+                <p class="fragment">Metoda <code>OPTIONS</code> zwraca metody HTTP obsługiwane przez serwer dla określonego adresu URL.</p>
+            </section>
+            <section>
+                <h2><a target="_blank" href="https://pl.wikipedia.org/wiki/Lista_nag%C5%82%C3%B3wk%C3%B3w_HTTP"><code>HTTP</code> Headers</a></h2>
+            </section>
+            <section>
+                <h2><a target="_blank" href="https://pl.wikipedia.org/wiki/Kod_odpowiedzi_HTTP"><code>HTTP</code> Response Status Code</a></h2>
+                <ul>
+                    <li class="fragment"><code>1XX</code> - kody informacyjne</li>
+                    <li class="fragment"><code>2XX</code> - kody powodzenia</li>
+                    <li class="fragment"><code>3XX</code> - kody przekierowania</li>
+                    <li class="fragment"><code>4XX</code> - kody błędu aplikacji klienta</li>
+                    <li class="fragment"><code>5XX</code> - kody błędu serwera HTTP</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1><b class="accent">A</b>pplication <b class="accent">P</b>rogramming <b class="accent">I</b>nterface</p></h1>
+            </section>
+            <section>
+                <h2>API</h2>
+                <div style="text-align: left;">
+                    <p class="fragment">Zestaw reguł i ich opis, w jaki programy komputerowe komunikują się między sobą.</p>
+                    <p class="fragment">Zadanie interfejsu programowania aplikacji jest dostarczenie odpowiednich specyfikacji podprogramów, struktur danych, klas obiektów i wymaganych protokołów komunikacji.</p>
+                </div>
+            </section>
+            <section data-background-image="./assets/api/1.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/2.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/3.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/4.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/5.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/6.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/7.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/8.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/9.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/10.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/11.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section data-background-image="./assets/api/12.png"
+                     data-background-size="50%"
+                     data-background-color="white"
+            ></section>
+            <section>
+                <h1><b class="accent">R</b>emote <b class="accent">P</b>rocedure <b class="accent">C</b>all</h1>
+            </section>
+            <section>
+                <h2>RPC</h2>
+                <div style="text-align: left;">
+                    <p class="fragment">RPC - czyli zdalne wywołanie procedur.</p>
+                    <p class="fragment">Podejście RPC ma wiele znaczeń oraz wiele form. W przypadku web, wywołanie RPC pozwala na manipulowanie danymi poprzez protokół HTTP.</p>
+                    <p class="fragment">RPC w rozumieniu web serwera: WYGOPIAO(What You GET Or POST Is An Operation).</p>
+                </div>
+            </section>
+            <section>
+                <h2>Zapamiętać!</h2>
+                <ul>
+                    <li class="fragment">Struktura komunikacji RPC nie jest z góry ustalona.</li>
+                    <li class="fragment">Końcówka powinna zawierać nazwę procedury którą chcemy wywołać na zdalnym serwerze.</li>
+                    <li class="fragment">Standard ten przyjmuje tylko 2 metody komunikacji <code>GET</code> oraz <code>POST</code>.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    GET /getUsers?someType=abc
+            </code></pre>
+
+                <pre><code class="hljs">
+    POST /saveNewUser
+    {
+        "name": "Jan",
+        "lastName": "Nowak"
+    }
+            </code></pre>
+            </section>
+            <section>
+                <h2>Standardy bazujące na RPC</h2>
+                <ul>
+                    <li>JSON-RPC</li>
+                    <li>JSON-XML</li>
+                    <li>SOAP</li>
+                </ul>
+            </section>
+            <section>
+                <h1><b class="accent">Re</b>presentational <b class="accent">S</b>tate <b class="accent">T</b>ransfer</h1>
+            </section>
+            <section>
+                <h2>REST</h2>
+                <div style="text-align: left;">
+                    <p class="fragment">REST - zmiana stanu poprzez reprezentacje</p>
+                    <p class="fragment">Standard określający zasady projektowania API. Bazuje na protokole HTTP.</p>
+                    <p class="fragment">Za pomocą interfejsu REST API możemy eksponować dane jako zasoby, którymi manipulujemy za pomocą odpowiednich metod protokołu HTTP.</p>
+                </div>
+            </section>
+            <section>
+                <h2>REST ...</h2>
+                <div style="text-align: left">
+                    <p class="fragment">Metody jakie udostępnia nam protokół HTTP w łatwy sposób możemy przyporządkować do operacji CRUD(Create/Read/Update/Delete) na obiekcie.</p>
+                </div>
+                <pre class="fragment"><code class="hljs">
+    C => POST
+    R => GET
+    U => PUT/PATCH
+    D => DELETE
+            </code></pre>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    GET /users
+    GET /users/:id
+    POST /users
+    PUT /users/:id
+    DELETE /users/:id
+            </code></pre>
+            </section>
+            <section>
+                <h2>Ogólne zasady REST</h2>
+                <ul>
+                    <li class="fragment"><code>Uniform interface</code> - Interfejs powinien zapewnić ustandaryzowaną komunikację pomiędzy klientem a serwerem</li>
+                    <li class="fragment"><code>Client-server</code> - Wyraźny podział na aplikację po stronie klienta i serwera</li>
+                    <li class="fragment"><code>Stateless</code> - czyli każde zapytanie powinno zawierać komplet informacji do poprawnego obsłużenia żądania</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Ogólne zasady REST ...</h2>
+                <ul>
+                    <li class="fragment"><code>Cacheable</code> - API powinno wspierać cache’owanie danych w celu zwiększenia wydajności</li>
+                    <li class="fragment"><code>Layered system</code> - klient łączący się do serwera nie powinien wiedzieć co się dzieje po drugiej stronie</li>
+                    <li class="fragment"><code>Code on demand(*)</code> – API przewiduje możliwość wysłania fragmentu kodu, który może być wykonany po stronie klienta</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Resource</h2>
+                <div style="text-align: left">
+                    <p class="fragment">Resource – czyli zasób. Dowolna informacja, która posiada nazwę może być zasobem jeżeli:</p>
+                    <ul>
+                        <li class="fragment">jest rzeczownikiem, np.: user, post, comment</li>
+                        <li class="fragment">jest unikatowa i wskazuje na konkretną rzecz</li>
+                        <li class="fragment">może być przedstawiona w formie danych</li>
+                        <li class="fragment">posiada przynajmniej jeden adres URI, pod którym jest dostępny</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Nazewnictwo</h2>
+                <div style="text-align: left">
+                    <p class="fragment">Zasoby powinny być tworzene w taki sposób, aby reprezentowały obiekt. Dzięki temu możliwe jest wykonanie wielu akcji na pojedyńczym zasobie.</p>
+                </div>
+                <pre class="fragment"><code class="hljs">
+    GET /users
+    POST /users
+    DELETE /users/:id
+            </code></pre>
+                <pre class="fragment"><code class="hljs">
+    GET /getUsers
+    POST /addUsers
+    POST /deleteUser?id=:id
+            </code></pre>
+            </section>
+            <section>
+                <h2>Reprezentacja</h2>
+                <ul>
+                    <li>JSON</li>
+                    <li>YAML</li>
+                    <li>XML</li>
+                    <li>...</li>
+                </ul>
+            </section>
+            <section>
+                <h2>GraphQL</h2>
+                <div style="text-align: left">
+                    <p class="fragment">GraphQL jest językiem zapytań dla interfejsów API i środowiskiem wykonawczym do wypełniania zapytań z istniejącymi danymi.</p>
+                    <p class="fragment">Zapewnia kompletny i zrozumiały opis danych w API.</p>
+                    <p class="fragment">Pozwala na pobranie wielu zasobów w jednym zapytaniu.</p>
+                </div>
+            </section>
+            <section>
+                <h2>GraphQL ...</h2>
+                <div style="text-align: left">
+                    <p class="fragment">GraphQL daję możliwość zadawanie zapytań o to czego konkretnie dany klient potrzebuje, bez dodatkowych danych.</p>
+                    <p class="fragment">Łączy się do jednego adresu do którego wysyła odpowiednie zapytanie, które jest przetwarzane przez serwer.</p>
+                </div>
+            </section>
+            <section>
+                <h1><a href="https://graphql.org/" target="_blank">GraphQL</a></h1>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>HTTP Server</h1>
+            </section>
+            <section>
+                <h2>Wbudowany moduł HTTP</h2>
+                <pre class="fragment"><code class="hljs">
+    const http = require('http');
+
+    const server = http.createServer((req, res) => {
+        res.writeHead(200, {
+            'Content-Type': 'text/plain'
+        });
+        res.end('...');
+    });
+
+    server.listen(4500);
+            </code></pre>
+            </section>
+            <section>
+                <h2>Web Frameworks</h2>
+                <ul>
+                    <li><a href="https://www.npmjs.com/package/express" target="_blank">express</a> <sup>(42 285)</sup></li>
+                    <li><a href="https://www.npmjs.com/package/koa" target="_blank">koa</a> <sup>(24 868)</sup></li>
+                    <li><a href="https://www.npmjs.com/package/hapi" target="_blank">hapi</a> <sup>(10 728)</sup></li>
+                    <li><a href="https://www.npmjs.com/package/fastify" target="_blank">fastify</a> <sup>(9 463)</sup></li>
+                    <li><a href="https://www.npmjs.com/package/connect" target="_blank">connect</a> <sup>(8 269)</sup></li>
+                    <li><a href="https://www.npmjs.com/search?q=web%20framework" target="_blank">...</a></li>
+                </ul>
+            </section>
+            <section>
+                <h2>Express</h2>
+                <p class="fragment">Express jest to web framework, który zapewnia solidny zestaw funkcji dla aplikacji internetowych i mobilnych przy minimalnej i elastycznej strukturze.</p>
+            </section>
+            <section>
+                <h2>hello world!</h2>
+                <pre class="fragment"><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    app.get('/', (req, res) => {
+        res.send('hello world!');
+    });
+
+    app.listen(4500, () => console.log('server started'));
+            </code></pre>
+            </section>
+            <section>
+                <h2>Basic routing</h2>
+                <div style="text-align: left;">
+                    <p class="fragment">Routing to określanie, w jaki sposób aplikacja odpowiada na żądanie klienta do określonego punktu końcowego i konkretnej metodzie żądania HTTP (GET, POST itd.).</p>
+                    <p class="fragment">Każda trasa może mieć jedną lub więcej funkcji obsługi, które są wykonywane po dopasowaniu ścieżki.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Routing[struktura] </h2>
+                <pre class="fragment"><code class="hljs">
+    app.METHOD(PATH, HANDLER)
+            </code></pre>
+                <div class="fragment" style="text-align: left">
+                    <div><code>app</code> - instancja naszego serwera</div>
+                    <div><code>METHOD</code> - metoda żądania HTTP (małymi literami)</div>
+                    <div><code>PATH</code> - ścieżka na serwerze</div>
+                    <div><code>HANDLER</code> - funkcja wykonywana po dopasowaniu ścieżki</div>
+                </div>
+            </section>
+            <section>
+                <h2>Route methods</h2>
+                <pre class="fragment"><code class="hljs">
+    app.get('/', (req, res) => {
+        res.send('hello world!');
+    });
+
+    app.post('/', (req, res) => {
+        res.send('Got a POST request');
+    });
+
+    app.all('/', (req, res) => {
+        res.send('Any of HTTP method');
+    });
+            </code></pre>
+            </section>
+            <section>
+                <h2>Route paths</h2>
+                <div style="text-align: left">
+                    <p class="fragment">Ścieżki w połączeniu z metodą żądania, definiują punkty końcowe.</p>
+                    <p class="fragment">Ścieżki mogą przyjmować zwykły adres(string), wzór(string patterns) lub wyrażenie regularne(RegExp).</p>
+                    <p class="fragment">Znaki ?, +, * i () są podzbiorami ich odpowiedników w wyrażeniach regularnych. Łącznik (-) i kropka (.) Interpretowane są dosłownie według ścieżek opartych na łańcuchach.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Przykład zwykłej ścieżki</h2>
+                <pre class="fragment"><code class="hljs">
+    app.get('/users', (req, res) => {
+        // ...
+    });
+
+    app.post('/posts.txt', (req, res) => {
+        // ...
+    });
+
+    app.delete('/comments.json', (req, res) => {
+        // ...
+    });
+            </code></pre>
+            </section>
+            <section>
+                <h2>Ścieżki bazujące na wzorze</h2>
+                <pre class="fragment"><code class="hljs">
+    // matches: user, users
+    app.get('/users?', (req, res) => {
+        // ...
+    });
+    // matches: users, userss, usersss, ...
+    app.post('/users+', (req, res) => {
+        // ...
+    });
+    // matches: users, usxxxers, usRANDOMers
+    app.delete('/us*ers', (req, res) => {
+        // ...
+    });
+            </code></pre>
+            </section>
+            <section>
+                <h2>Wyrażenie regularne</h2>
+                <pre class="fragment"><code class="hljs">
+    // matches: file.txt, abc/kot.txt
+    app.get(/.*\.txt/, (req, res) => {
+        // ...
+    });
+
+    // matches: ala, alaMaKota ...
+    app.post(/^ala.*/, (req, res) => {
+        // ...
+    });
+            </code></pre>
+            </section>
+            <section>
+                <h2>Route parameters</h2>
+                <div style="text-align: left;">
+                    <p class="fragment">Parametry trasy to nazwane segmenty adresów URL, które służą do przechwytywania wartości określonych na ich pozycji w adresie URL.</p>
+                    <p class="fragment">Przechwycone wartości są zapełniane w obiekcie req.params, a nazwa parametru trasy jest określona w ścieżce jako odpowiadające im klucze.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre class="fragment"><code class="hljs">
+    Path: /users/:userId/posts/:postId
+    URL: http://localhost:4500/users/12/posts/44
+
+    app.get('/users/:userId/posts/:postId', (req, res) => {
+        // req.params: { "userId": "12", "postId": "44" }
+    });
+            </code></pre>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre class="fragment"><code class="hljs">
+    Path: /getFile/:filename.:extension
+    URL: http://localhost:4500/getFile/somefile.txt
+    req.params: { "filename": "somefile", "extension": "txt" }
+            </code></pre>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre class="fragment"><code class="hljs">
+    Path: /getFile/:filename.:extension
+    URL: http://localhost:4500/getFile/somefile.txt
+    req.params: { "filename": "somefile", "extension": "txt" }
+            </code></pre>
+            </section>
+            <section>
+                <h2>Route handlers</h2>
+                <div style="text-align: left;">
+                    <p class="fragment">Route może posiadać wiele funkcji zwrotnych, które wykonują się sekwencyjnie aż zostanie wywołanie wysłania odpowiedzi do klienta. Warunkiem jest to iż funkcje pośrednie zamiast kończyć odpowiedź użyją funkcji callback next.</p>
+                    <p class="fragment">Procedury obsługi tras mogą mieć postać funkcji, szeregu funkcji lub kombinacji obu.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Single callback</h2>
+                <pre class="fragment"><code class="hljs">
+    app.get('/ala-ma-kota', (req, res) => {
+        // ...
+    });
+            </code></pre>
+            </section>
+            <section>
+                <h2>Many callbacks</h2>
+                <pre class="fragment"><code class="hljs">
+    app.get(
+        '/ala-ma-kota',
+        (req, res, next) => { ...; next() },
+        (req, res, next) => { ...; next() },
+        (req, res) => { ... }
+    );
+            </code></pre>
+            </section>
+            <section>
+                <h2>Combine callbacks</h2>
+                <pre class="fragment"><code class="hljs">
+    const callback1 = (req, res, next) => { ...; next() }
+    const callback2 = (req, res, next) => { ...; next() }
+
+    app.get(
+        '/ala-ma-kota',
+        [ callback1, callback2 ],
+        (req, res) => { ... }
+    );
+            </code></pre>
+            </section>
+            <section>
+                <h2>Response methods</h2>
+                <ul>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.download"><code>res.download()</code></a> - wyślij plik do pobrania</li>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.end" target="_blank"><code>res.end()</code></a> - zakończ żądanie</li>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.json" target="_blank"><code>res.json()</code></a> - wyślij odpowiedź JSON</li>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.redirect" target="_blank"><code>res.redirect()</code></a> - przekieruj żądanie</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Response methods...</h2>
+                <ul>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.render" target="_blank"><code>res.render()</code></a> - wyrenderuj widok</li>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.send" target="_blank"><code>res.send()</code></a> - wyślij odpowiedź różnych typów</li>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.sendFile" target="_blank"><code>res.sendFile()</code></a> - wyślij plik w postaci strumienia</li>
+                    <li class="fragment"><a href="http://expressjs.com/en/4x/api.html#res.sendStatus" target="_blank"><code>res.sendStatus()</code></a> - ustaw i wyślij kod odpowiedzi jako treść</li>
+                </ul>
+            </section>
+            <section>
+                <h2>app.route()</h2>
+                <pre class="fragment"><code class="hljs">
+    app.route('/users')
+        .get((req, res) => {
+            // ...
+        })
+        .post((req, res) => {
+            // ...
+        })
+        .delete((req, res) => {
+            // ...
+        });
+            </code></pre>
+            </section>
+            <section>
+                <h2><a href="http://expressjs.com/en/4x/api.html#router" target="_blank">express.Router</a></h2>
+                <div style="text-align: left;">
+                    <p class="fragment">Klasa <code>express.Router</code> służy do tworzenia modułowych, zbiorów procedur obsługi ścieżek.</p>
+                    <p class="fragment">Instancja routera to kompletne oprogramowanie wraz z systemem routingu. Określana również jako mini aplikacja.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre class="fragment"><code class="hljs">
+    const express = require('express');
+    const router = express.Router();
+
+    router.use((req, res, next) => {
+        console.log('time: ', Date.now());
+        next();
+    });
+    router.get('/', (req, res) => {
+        res.send('hello world!');
+    });
+
+    module.exports = router;
+            </code></pre>
+            </section>
+            <section>
+                <h2>Przykład ...</h2>
+                <pre class="fragment"><code class="hljs">
+    const express = require('express');
+    const dashboard = require('./dashboard');
+    const app = express();
+
+    app.use('/dashboard', dashboard);
+
+    app.listen(4500, () => console.log('server started'));
+            </code></pre>
+            </section>
+        </section>
+        <section>
+            <section><h1>Middleware</h1></section>
+            <section>
+                <div style="text-align: left;">
+                    <code><b>MIDDLEWARE</b></code> czyli oprogramowanie pośredniczące jest to rodzaj oprogramowania/funkcji umożliwiającej komunikację pomiędzy różnymi aplikacjami, usługami lub systemami.
+                </div>
+            </section>
+            <style>
+                .circle-screen {
+                    position: absolute;
+                    overflow: fragments;
+                    /*height: 100%;*/
+                    /*transform: translate(-50%, -50%);*/
+                    top: 0%;
+                    left: 0%;
+                }
+
+                .circle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    width: calc(100% - 250px);
+                    height: calc(100% - 250px);
+                    border-radius: 50%;
+                    color: #0f0f0f;
+                }
+
+                .circle span {
+                    position: absolute;
+                    right: 2px;
+                    width: 200px;
+                    text-align: center;
+                    display: inline-block;
+                    /*transform: scale(.4);*/
+                }
+                .circle--first {
+                     /*transform: translate(-50%, -50%) scale(1.0);*/
+                     /*top: 50%;*/
+                     width: 700px;
+                     height: 700px;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                 }
+                .circle--color1 {
+                     background-color: #eee860;
+                 }
+                .circle--color2 {
+                     background-color: #eeaa56;
+                 }
+                .circle--color2 > span, .circle--color1 > span {
+                    top: 8%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+                .circle--color3 {
+                     background-color: #f25235;
+                 }
+                .circle--color3 > span {
+                    position: static;
+                }
+                .circle--color4 {
+                     background-color: #eeaa56;
+                 }
+                .circle--color5 {
+                     background-color: #f25235;
+                }
+                .response {
+                    right: -50px;
+                }
+                .request {
+                    left: -50px;
+                }
+                .request, .response {
+
+                    top: 45%;
+                    position: fixed;
+                    background-color: rgba(0, 164, 253, 0.64);
+                    border-radius: 50px;
+                    padding: 10px 20px !important;
+                    z-index: 1000;
+
+                }
+            </style>
+            <section data-background-color="white">
+                <div class="circle-screen">
+                    <div class="circle circle--first circle--color1">
+                        <div class="request"><code>REQUEST--&gt</code></div>
+                        <div class="response"><code>RESPONSE--&gt</code></div>
+                        <span>middleware</span>
+                        <div class="circle circle--color2">
+                            <span>middleware</span>
+                            <div class="circle circle--color3">
+                                <span>app</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>Middleware in Express</h2>
+                <div style="text-align: left;">
+                    <p class="fragment"><code>Middleware</code> w <code>Express</code> pełni rolę pośrednią przed wykonaniem odpowiedniej instrukcji dla danej ścieżki. </p>
+                    <p class="fragment">W funkcji mamy dostęp do żądania i odpowiedzi <code>HTTP</code> oraz funkcji <code>callback</code> <code>next</code>, która odpowiada za wywołanie kolejnego <code>middleware</code> lub przejścia do odpowiedniej instrukcji dla danej ścieżki.</p>
+                </div>
+            </section>
+            <section>
+                <div class="left">
+                    <p>Funkcje <code>middleware</code> mogą wykonywać następujące zadania:</p>
+                    <ul>
+                        <li class="fragment">wykonać dowolny kod</li>
+                        <li class="fragment">wprowadzić zmiany w obiektach żądań i odpowiedzi</li>
+                        <li class="fragment">zakończyć żadanie</li>
+                        <li class="fragment">wywołac następne oprogramowanie pośrednie w stosie</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre class="fragment"><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    const customMiddleware = (req, res, next) => {
+        // some logic ...
+        next();
+    };
+
+    app.use(customMiddleware);
+
+    app.listen(4500, () => console.log('server started'));
+            </code></pre>
+            </section>
+            <section>
+                <h2>Zapamiętać!</h2>
+                <div class="left">
+                    <p>Jeżeli <code>middleware</code> nie kończy żądania/odpowiedzi, musi zostać wywyłana funkcja <code>next()</code>, aby przekazać sterowanie do następnej funkcji oprogramowania pośredniego.</p>
+                    <p>W przeciwnym wypadku żądanie zostanie zawieszone.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    // ...
+    const timeMiddleware = (req, res, next) => {
+        req.requestTime = new Date();
+        next();
+    };
+
+    app.use(timeMiddleware);
+
+    app.get('/', (req, res) => {
+        res.send('request time: ' + req.requestTime);
+    });
+    // ...
+            </code></pre>
+            </section>
+
+            <section>
+                <h2>Types of <code>middleware</code></h2>
+                <div class="left">
+                    <p>W <code>Express</code> możemy wykorzystać takie typy <code>middleware</code> jak:</p>
+                    <ul>
+                        <li class="fragment"><a href="https://expressjs.com/en/guide/using-middleware.html#middleware.application" target="_blank">Application-level middleware</a></li>
+                        <li class="fragment"><a href="https://expressjs.com/en/guide/using-middleware.html#middleware.router" target="_blank">Router-level middleware</a></li>
+                        <li class="fragment"><a href="https://expressjs.com/en/guide/using-middleware.html#middleware.error-handling" target="_blank">Error-handling middleware</a></li>
+                        <li class="fragment"><a href="https://expressjs.com/en/guide/using-middleware.html#middleware.built-in" target="_blank">Built-in middleware</a></li>
+                        <li class="fragment"><a href="https://expressjs.com/en/guide/using-middleware.html#middleware.third-party" target="_blank">Third-party middleware</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Application-level middleware</h2>
+                <div class="left">
+                    <p>Powiązanie oprogramowania warstwy pośredniej na poziomie aplikacji.</p>
+                    <p>Ten rodzaj <code>middleware</code> będzie wykonywał się dla całej aplikacji lub dla wydzielonej grupy ścieżek.</p>
+                </div>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    app.use((req, res, next) => {
+        console.log('current time', new Date());
+        next();
+    });
+
+    app.listen(4500, () => console.log('server started'));
+            </code></pre>
+            </section>
+            <section>
+                <h2>Przykład (ścieżka)</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    app.use('/user', (req, res, next) => {
+        req.userTime = new Date();
+        next();
+    });
+
+    app.listen(4500, () => console.log('server started'));
+            </code></pre>
+            </section>
+
+            <section>
+                <h2>Router-level middleware</h2>
+                <div class="left">
+                    <code>Router-level middleware</code> działa podobnie jak <code>application-level middleware</code> jedyna różnica jest taka iż ten rodzaj <code>middleware</code> działa w obrembie instancji <code>express.Router()</code>.
+                </div>
+            </section>
+
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const router = express.Router()
+
+    router.use((req, res, next) => {
+        console.log('current time', new Date());
+        next();
+    });
+    // ...
+            </code></pre>
+            </section>
+            <section>
+                <h2>Error-handling middleware</h2>
+                <div class="left">
+                    <p><code>Error-handling middleware</code> obsługuje błędy oprogramowania. Ten rodzaj <code>middleware</code> przyjmuje cztery argumenty.</p>
+                    <p>Definicja tego rodzaju middleware wygląda podobnie jak w przypadku wcześniejszych typów.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    app.use((error, req, res, next) => {
+        console.error(error.message);
+        res.send(500, error.message);
+    });
+    // ...
+            </code></pre>
+            </section>
+
+            <section>
+                <h2>Built-in middleware</h2>
+                <div class="left">
+                    <p><code>Built-in middleware</code> czyli wbudowane w webframework <code>Express</code> oprogramowanie pośrednie.</p>
+                    <ul>
+                        <li class="fragment"><code>express.static</code> - <code>middleware</code> odpowiedzialny za udostępnianie statycznych zasobów</li>
+                        <li class="fragment"><code>express.json</code> - parsowanie zawartości przychodzącego z żądania typu <code>JSON</code></li>
+                        <li class="fragment"><code>express.urlencoded</code> - parsowanie zawartości przychodzącego z żądania z formularza</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Built-in middleware</h2>
+                <div class="left">
+                    <p class="fragment">Od wersji 4.x, <code>Express</code> udostępnia jedynie trzy wcześniej wymienione funkcje pośrednie.</p>
+                    <p class="fragment">Reszta <code>middleware</code> jest rozwijana w odzielnych modułach.</p>
+                    <p class="fragment"><a href="https://github.com/senchalabs/connect#middleware" target="_blank">Lista dostępnych modułów rozwijanych przez <code>Express</code></a></p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Third-party middleware</h2>
+                <div class="left">
+                    <code>Third-party middleware</code> czyli funkcje pośrednie stworzone przez innych poza zespołem twórców framework'a <code>Express</code>.
+                </div>
+            </section>
+
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const bodyParser = require('body-parser'):
+    const app = express();
+
+    app.use(bodyParser.json());
+
+    // ...
+            </code></pre>
+            </section>
+
+
+        </section>
+        <section>
+            <section>
+                <h1>Template</h1>
+            </section>
+            <section>
+                <h2>Template</h2>
+                <div class="left">
+                    <p class="fragment"><code>Express</code> udostępnia mechanizm, który umożliwia korzystanie ze statycznych plików szablonów w aplikacji.</p>
+                    <p class="fragment">W środowisku wykonawczym silnik szablonów zastępuje zmienne w pliku statycznym, rzeczywistymi wartościami i przekształca szablon w plik HTML wysyłany do użytkownika.</p>
+                </div>
+            </section>
+            <section>
+                <h2>template engines</h2>
+                <div class="left">
+                    <p>Niektóre popularne silniki szablonów współpracują z <code>Express'em</code>(np. JADE/Pug, Mustache, EJS).</p>
+                    <p><code>Express</code> domyślnie używa <code>JADE/Pug</code> jako silnik szablonów.</p>
+                    <p><a href="https://github.com/expressjs/express/wiki#template-engines" target="_blank">Pełna lista silników szablonów</a></p>
+                </div>
+            </section>
+            <section>
+                <h2>Render</h2>
+                <div class="left">Aby przerenderować pliki szablonów niezbędna jest odpowiednia konfiguracja:</div>
+                <ul>
+                    <li class="fragment">ustawić ścieżkę do katalogu gdzie będą znajdować sie szablony, np: <code>app.set('views', './templates');</code></li>
+                    <li class="fragment">ustawić odpowiedni silinik szablonów, np: <code>app.set('view engine', 'pug')</code> oraz pobrać odpowiednią paczkę z <code>npm</code></li>
+                </ul>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    app.set('view engine', 'pug')
+    app.get('/', function (req, res) {
+        const scope = { title: 'some title', header: 'heloo!' };
+        res.render('index', scope);
+    });
+    // ...
+            </code></pre>
+            </section>
+            <section>
+                <h2>PUG template</h2>
+                <pre><code class="hljs">
+    html
+        head
+            title= title
+        body
+            h1= header
+            </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1><code>Express</code> Error Handling</h1>
+            </section>
+            <section>
+                <h2>Error handling</h2>
+                <p class="fragment">Obsługa błędów odnosi się do sposobu, w jaki framework <code>Express</code> przechwytuje i przetwarza błędy, które występują synchronicznie jaki i asynchronicznie.</p>
+                <p class="fragment"><code>Express</code> sam w sobie zawiera domyślną procedurę obsługi błędów, więc jeżeli nie ma takiej potrzeby to nie trzeba jej pisać samodzielnie.</p>
+            </section>
+
+            <section>
+                <h2>Catching Errors</h2>
+                <p class="fragment">Ważne jest, aby program <code>Express</code> przechwytywał wszystkie błędy występujące podczas uruchamiania programów do obsługi tras jak i <code>middleware</code>.</p>
+                <p class="fragment">Błędy występujące w kodzie synchronicznym wewnątrz procedur obsługi tras i oprogramowania pośredniego nie wymagają dodatkowej pracy. Jeśli kod synchroniczny zgłasza błąd, <code>Express</code> przechwytuje go i przetwarza.</p>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    app.get('/', function (req, res) {
+        throw new Error('some dumb error');
+    });
+    // ...
+            </code></pre>
+            </section>
+            <section>
+                <h2>Catching Errors</h2>
+                <p>
+                    W przypadku błędów zwracanych przez funkcje asynchroniczne wywoływane przez procedury obsługi i oprogramowanie pośrednie, należy przekazać je do funkcji <code>next()</code>, w której to <code>Express</code> je przechwyci i przetworzy.
+                </p>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    const express = require('express');
+    const app = express();
+
+    app.get('/', function (req, res) {
+        setTimeout(() => {
+            const error = new Error('some dumb error');
+            next(error);
+        }, 5000);
+    });
+    // ...
+            </code></pre>
+            </section>
+            <section>
+                <h2>Default error handler</h2>
+                <p class="fragment"><code>Express</code> dostarcza wbudowaną obsługę błędów, która dba o wszelkie błędy, które mogą wystąpić w aplikacji.</p>
+                <p class="fragment">Ta domyślna funkcja obsługi oprogramowania do obsługi błędów jest dodawana na KOŃCU stosu funkcji oprogramowania pośredniego.</p>
+            </section>
+            <section>
+                <h2>Default error handler...</h2>
+                <p class="fragment">Jeśli przekażemy błąd do funkcji <code>next()</code> i nie obsłużymy go w niestandardowej procedurze obsługi błędów, zostanie ona obsłużona przez wbudowany mechanizm obsługi błędów.</p>
+            </section>
+            <section>
+                <h2>Error handlers</h2>
+                <p class="fragment">Konstrukcja middleware do obsługi błędów przyjmuje cztery argumenty, nie tak jak w przypadku zwykłych funkcji pośrednich. <code>(err, req, res, next)</code></p>
+                <p class="fragment">Middleware zawiązane z obsługą błędów muszą być użyte po dodaniu innych funkcji pośredniczących jak i obsługi ścieżek.</p>
+            </section>
+            <section>
+                <h2>Przykład</h2>
+                <pre><code class="hljs">
+    // ...
+    app.use(bodyParser.json());
+    app.use(cookieParser);
+
+    app.get('/', ...);
+    /// ...
+
+    app.use((error, req, res, next) => {
+        // ...
+    });
+    // ...
+            </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section><h1>DATABASE</h1></section>
+            <section>
+                <h2>DATABASE</h2>
+                <p class="fragment left">DATABASE(baza danych) – uporządkowany zbiór danych zapisany zgodnie z określonymi regułami.</p>
+                <p class="fragment left">Definicja obejmuje dane cyfrowe gromadzone zgodnie z zasadami przyjętymi dla danego programu komputerowego specjalizowanego do gromadzenia i przetwarzania danych. </p>
+            </section>
+            <section>
+                <h2>DATABASE...</h2>
+                <p class=" left">Program taki nazywany jest systemem zarządzania bazami danych(DBMS, database management system), składający się ze zintegrowanego zestawu oprogramowania komputerowego, które pozwala użytkownikom na interakcję z jedną lub większą liczbą baz danych i zapewnia dostęp do wszystkich danych zawartych w bazie danych</p>
+            </section>
+            <section>
+                <h2>Działanie baz danych</h2>
+                <p class=" left">Sposób organizacji danych w bazach danych jest różny. </p>
+                <p class="fragment left">Wiele typów baz danych organizuje dane w formie tabel zawierających rekordy podzielone na pola, w których są przechowywane informacje poszczególnych kategorii.</p>
+            </section>
+            <section>
+                <h2>Rodzaje baz danych</h2>
+                <p class=" left">Bazy danych można podzielić według struktur organizacji danych, których używają:</p>
+                <div class="fragment left">
+                    Bazy proste: kartotekowe i hierarchiczne
+                </div>
+                <div class="fragment left">
+                    <div>Bazy złożone:</div>
+                    <ul>
+                        <li>relacyjne</li>
+                        <li>obiektowe</li>
+                        <li>relacyjno - obiektowe</li>
+                        <li>strumieniowe</li>
+                        <li>nierelacyjne (NoSQL)</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Bazy kartotekowe</h2>
+                <p class=" left">W bazach kartotekowych każda tablica danych jest samodzielnym dokumentem. Jedna tablica nie może współpracować z innymi. Przykładami tego typu bazy danych mogą być: książki telefoniczne, kucharskie. Są one stosowane w jednym, wybranym wcześniej celu. </p>
+            </section>
+            <section data-background-color="white">
+                <img src="./assets/db/kartotekowe.png"/>
+            </section>
+            <section>
+                <h2>Bazy hierarchiczne</h2>
+                <p class="left">Są to bazy danych zawierające powiązane ze sobą dane, ułożone w strukturę o kształcie drzewa z jednym punktem początkowym i wieloma rozgałęzieniami. Hierarchiczny model bazy danych cechuje skomplikowana struktura i trudności z tworzeniem określonego typu powiązań pomiędzy danymi. </p>
+            </section>
+            <section data-background-color="white">
+                <img src="./assets/db/hierarchiczna.png"/>
+            </section>
+            <section>
+                <h2>Bazy relacyjne</h2>
+                <p class="fragment left">W przeciwieństwie do baz kartotekowych, w bazach relacyjnych wiele tablic danych może ze sobą współpracować.</p>
+                <p class="fragment left">Bazy te posiadają wewnętrzne języki programowania, wykorzystujące zwykłe SQL do operowania na danych, dzięki czemu tworzone są zaawansowane funkcje obsługi danych.</p>
+            </section>
+            <section>
+                <h2>Bazy relacyjne...</h2>
+                <p class="fragment left">Relacyjne bazy danych oparte są na kilku podstawowych zasadach:</p>
+                <p class="fragment left">- Wszystkie wartości są oparte na prostych typach danych</p>
+                <p class="fragment left">- Wszystkie dane w bazie relacyjnej przedstawiane są w formie tabel. Tabela składa się z wierszy zwanych rekordami i kolumn zwanych polami. Każda kolumna posiada unikalną w obrębie tabeli nazwę</p>
+            </section>
+            <section>
+                <h2>Bazy relacyjne...</h2>
+                <p class="fragment left">- Po wprowadzeniu danych do bazy, możliwe jest porównywanie wartości z różnych kolumn, również z różnych tabel, scalanie wierszy, gdy pochodzące z nich wartości są tego samego typu.</p>
+                <p class="fragment left">- Każda tabela musi posiadać jedną kolumnę pozwalającą jednoznacznie zidentyfikować i odnaleźć konkretny wiersz. Kolumnę te określa się mianem 'klucza podstawowego tabeli'</p>
+            </section>
+            <section data-background-color="#EBEFF2">
+                <img src="./assets/db/relacyjne.png"/>
+            </section>
+            <section>
+                <h2>Bazy obiektowe</h2>
+                <p class="fragment left">W bazach obiektowych dane są przechowywane za pomocą struktur obiektowych, będących zdefiniowanych jako klasy. Nie są one zdefiniowane żadnym oficjalnym standardem.</p>
+            </section>
+            <section>
+                <h2>Bazy obiektowe...</h2>
+                <p class="fragment left">Cechą charakterystyczną obiektowych baz danych jest to, że przechowują obiekty o dowolnych strukturach wraz z przywiązanymi do nich metodami (procedurami).</p>
+                <p class="fragment left">Dzięki takiemu rozwiązaniu bazy takie mają znaczną przewagę nad innymi rodzajami baz kiedy zachodzi konieczność przechowywania bardzo złożonych struktur.</p>
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/obiektowa.png"
+                     data-background-size="35%"
+            >
+            </section>
+            <section>
+                <h2>Bazy relacyjno-obiektowe</h2>
+                <p class="fragment left">Bazy relacyjno-obiektowe pozwalają na manipulowanie danymi jako zestawem obiektów, posiadają jednak bazę relacyjną jako wewnętrzny mechanizm przechowywania danych.</p>
+            </section>
+            <section>
+                <h2>Bazy strumieniowe</h2>
+                <p class="fragment left">Strumieniowe bazy danych są to bazy, w których dane są przedstawione w postaci strumieni danych. System zarządzania taką bazą nazywany jest DSMS (ang. Data Stream Managament System) czyli strumieniowym systemem zarządzania danymi. </p>
+            </section>
+            <section>
+                <h2>Bazy strumieniowe...</h2>
+                <p class="fragment left">W modelu strumieni danych zakłada się, że niektóre lub wszystkie napływające do systemu dane nie są dostępne w dowolnej chwili. Możliwy czas, w jakim można je zarejestrować jest skończony. Dane te pojawiają się w źródle danych i przyjmują postać strumienia danych.</p>
+            </section>
+            <section>
+                <h2>Bazy nierelacyjne</h2>
+                <p class="fragment left">Pod pojęciem bazy nierelacyjnej (NoSQL database) najczęściej rozumie się przechowywanie danych w formie listy par obiektów klucz-wartość, w których nie występują powiązania relacyjne między przechowywanymi obiektami.</p>
+                <p class="fragment left">W bazie NoSQL najczęściej nie ma wymagania aby obiekty były jednorodne pod względem struktury.</p>
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/nosql.png"
+                     data-background-size="30%"
+            >
+            </section>
+            <section>
+                <h1>SQL vs NoSQL</h1>
+            </section>
+            <section>
+                <h2>SQL</h2>
+                <p class="fragment left">SQL (Structured Query Language) – strukturalny język zapytań używany do tworzenia, modyfikowania baz danych oraz do umieszczania i pobierania danych z baz danych.</p>
+                <p class="fragment left">Język SQL jest językiem deklaratywnym. Decyzję o sposobie przechowywania i pobrania danych pozostawia się systemowi zarządzania bazą danych (DBMS).</p>
+            </section>
+
+            <section>
+                <h2>Przykład SQL</h2>
+                <pre><code class="hljs">
+  SELECT * FROM EMPLOYEES
+    WHERE SALARY > 2000
+    ORDER BY SALARY DESC
+            </code></pre>
+            </section>
+
+            <section>
+                <h2>NoSQL</h2>
+                <p class="fragment left">NoSQL (nierelacyjna baza danych SQL) – baza danych zapewniająca mechanizm do przechowywania i wyszukiwania danych modelowanych w inny sposób niż relacje tabelaryczne używane w relacjach baz danych SQL.</p>
+                <p class="fragment left">NoSQL stworzony został z potrzeby obsługiwania większych wolumenów danych, która wymusiła przejście na model budowania platform na klastrach mniej wydajnych serwerów.</p>
+            </section>
+            <section>
+                <h2>NoSQL...</h2>
+                <p class="fragment left">Struktury danych używane przez NoSQL (np. klucz–wartość, graf, dokument, szerokokolumnowe) różnią się od tych używanych domyślnie w relacyjnych bazach danych, dzięki czemu niektóre operacje NoSQL są szybsze.</p>
+            </section>
+            <section>
+                <h1>Dlaczego NoSQL?</h1>
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db1.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db2.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db3.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db4.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db5.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db6.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db7.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/db8.png"
+                     data-background-size="75%"
+            >
+            </section>
+
+            <section>
+                <h2>MongoDB</h2>
+                <p class="left fragment">MongoDB – otwarty, nierelacyjny system zarządzania bazą danych. Charakteryzuje się dużą skalowalnością, wydajnością oraz brakiem ściśle zdefiniowanej struktury obsługiwanych baz danych. </p>
+                <p class="fragment left">Zamiast tego dane składowane są jako dokumenty w stylu JSON, co umożliwia aplikacjom bardziej naturalne ich przetwarzanie, przy zachowaniu możliwości tworzenia hierarchii oraz indeksowania.</p>
+            </section>
+
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs1.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs2.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs3.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs4.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs5.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs6.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs7.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs8.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs9.png"
+                     data-background-size="70%"
+            >
+            </section>
+            <section data-background-color="white"
+                     data-background-image="./assets/db/vs10.png"
+                     data-background-size="70%"
+            >
+            </section>
+
+            <section>
+                <h2>MongoDB console</h2>
+            </section>
+
+            <section data-background-color="black"
+                     data-background-image="./assets/db/console.png"
+                     data-background-size="60%"
+            >
+            </section>
+            <section>
+                <h2>MongoDB compass</h2>
+            </section>
+
+            <section data-background-image="./assets/db/compass.png"
+                     data-background-size="60%"
+            >
+            </section>
+
+            <section>
+                <h2>MongoDB w NodeJS</h2>
+            </section>
+            <section>
+
+                <pre><code class="hljs">
+const { MongoClient } = require('mongodb');
+
+(async () => {
+    const dbAddress = 'mongodb://127.0.0.1:27017/';
+    const dbName = 'users';
+    const mongoOptions = { useNewUrlParser : true };
+    const client = await MongoClient.connect(dbAddress, mongoOptions);
+
+    const db = client.db(dbName);
+    // ...
+})();
+            </code></pre>
+            </section>
+            <section>
+                <a href="http://mongodb.github.io/node-mongodb-native/3.2/" target="_blank">dokumentacja</a>
+            </section>
+        </section>
+    </div>
+</div>
+<style>
+    img {
+        box-shadow: none !important;
+        border: 0 !important;
+    }
+</style>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/search/search.js', async: true },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
