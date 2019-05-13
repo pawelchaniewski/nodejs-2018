@@ -2,6 +2,11 @@
 
 ## `MongoDB` (https://www.mongodb.com/)
 
+Program który uruchamia serwer bazy danych z podaniem ścieżki do katalogu:
+```
+c:/mongodb/bin/mongod --dbpath c:/mongodb-data
+```
+
 ## `MongoDB Node.JS Driver` (https://mongodb.github.io/node-mongodb-native/?jmp=docs)
 
 > Reference: http://mongodb.github.io/node-mongodb-native/3.2/
@@ -72,9 +77,20 @@ const { MongoClient } = require('mongodb');
 
     const db = client.db(dbName);
     
-    const result = await db.collection('users')..find().toArray();
+    const result = await db.collection('users').find().toArray();
     console.log(result);
 })();
+```
+
+## mongoose (https://mongoosejs.com/)
+```javascript
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true });
+
+const Cat = mongoose.model('Cat', { name: String });
+
+const kitty = new Cat({ name: 'Zildjian' });
+kitty.save().then(() => console.log('meow'));
 ```
 
 ## Zadania do wykonania na laboratorium
